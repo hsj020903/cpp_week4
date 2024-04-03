@@ -207,7 +207,6 @@ int main()
             else if (s == "double")
             {
                 type = DOUBLE;
-                int dval = 0;
                 if (!(cin >> dval))
                 {
                     cin.clear();
