@@ -143,6 +143,7 @@ int main()
     init(database);
     while (!end)
     {
+    
         cout << "command (list, add, get, del, exit): ";
         cin >> s;
         if (s == "exit")
@@ -153,6 +154,7 @@ int main()
         {
             for (int i = 0; i < database.datasize; i++)
             {
+                
                 switch (database.entry[i].type)
                 {
                 case INT:
@@ -187,7 +189,6 @@ int main()
                 cout << "invalid type" << endl;
                 continue;
             }
-
             cout << "value: ";
             if (s == "int")
             {
@@ -200,13 +201,13 @@ int main()
                     cout << "invalid int" << endl;
                     continue;
                 }
-
                 Entry *entry = create(type, key, &ival);
                 add(database, entry);
             }
             else if (s == "double")
             {
                 type = DOUBLE;
+                int dval = 0;
                 if (!(cin >> dval))
                 {
                     cin.clear();

@@ -38,7 +38,26 @@ Entry *create(Type type, std::string key, void *value)
     Entry *entry = new Entry;
     entry->type = type;
     entry->key = key;
-    entry->value = value;
+    if (type == INT) {
+        int *int_value = new int;
+        *int_value = *static_cast<int*>(value);
+        entry->value = int_value;
+    }
+    else if (type == DOUBLE) {
+        double *double_value = new double;
+        *double_value = *static_cast<double*>(value);
+        entry->value = double_value;
+    }
+    else if (type == STRING) {
+        string *string_value = new string;
+        *string_value = *static_cast<string*>(value);
+        entry->value = string_value;
+    }
+    else if (type == ARRAY) {
+        Array *arr_value = new Array;
+        *arr_value = *static_cast<Array*>(value);
+        entry->value = arr_value;
+    }
     return entry;
 }
 
@@ -52,14 +71,16 @@ void init(Database &database)
 // 데이터베이스에 엔트리를 추가한다.
 void add(Database &database, Entry *entry)
 {
+
     int count = -1;
     database.datasize++;
     Entry *newData = new Entry[database.datasize];
     for (int i = 0; i < database.datasize - 1; i++)
     {
         newData[i] = database.entry[i];
-        if (database.entry[i].key == entry->key)
+        if (database.entry[i].key == entry->key){
             count = i;
+        }
     }
 
     if (count == -1)
@@ -71,7 +92,6 @@ void add(Database &database, Entry *entry)
         *(newData + count) = *entry;
         database.datasize--;
     }
-
     delete[] database.entry;
     database.entry = newData;
     delete entry;
