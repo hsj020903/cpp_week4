@@ -46,7 +46,6 @@ Entry *create(Type type, std::string key, void *value)
 void init(Database &database)
 {
     database.datasize = 0;
-    delete[] database.entry;
     database.entry = new Entry[1];
 }
 
